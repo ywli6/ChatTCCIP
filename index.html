@@ -1,56 +1,28 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ChatTCCIP</title>
   <style>
     body { font-family: Arial, sans-serif; background: #f7f7f7; margin: 0; padding: 0; }
     .container { max-width: 800px; margin: 40px auto; background: white; border-radius: 8px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
     h1 { text-align: center; color: #2c3e50; }
-    #chat-box { border: 1px solid #ddd; border-radius: 4px; padding: 10px; height: 400px; overflow-y: auto; background: #fafafa; }
-    #chat-box p { margin: 8px 0; }
-    .user { color: #2c3e50; }
-    .bot { color: #16a085; }
-    .input-area { display: flex; margin-top: 15px; }
-    input[type="text"] { flex: 1; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; }
-    button { margin-left: 10px; padding: 10px 16px; font-size: 16px; background: #16a085; color: white; border: none; border-radius: 4px; cursor: pointer; }
-    button:hover { background: #138d75; }
+    p.description { text-align: center; color: #555; margin-top: 10px; }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>ChatTCCIP</h1>
-    <div id="chat-box"></div>
-    <div class="input-area">
-      <input id="userInput" type="text" placeholder="Ask something..." />
-      <button onclick="sendMessage()">Send</button>
-    </div>
+    <p class="description">歡迎使用 ChatTCCIP AI 助理，請點右下角按鈕開始對話。</p>
   </div>
 
-  <script>
-    async function sendMessage() {
-      const input = document.getElementById("userInput");
-      const chatBox = document.getElementById("chat-box");
-      const userText = input.value.trim();
-      if (!userText) return;
-
-      chatBox.innerHTML += `<p class="user"><strong>You:</strong> ${userText}</p>`;
-      input.value = "";
-      chatBox.scrollTop = chatBox.scrollHeight;
-
-      const response = await fetch("http://localhost:3001/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: userText, workspace: "default" })
-      });
-
-      const data = await response.json();
-      const reply = data.answer || "No response from model.";
-      chatBox.innerHTML += `<p class="bot"><strong>ChatTCCIP:</strong> ${reply}</p>`;
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
+  <!-- AnythingLLM Embed -->
+  <script
+    data-embed-id="f664ec1d-f976-403c-9334-8ec7dde94c7a"
+    data-base-api-url="http://localhost:3001/api/embed"
+    src="http://localhost:3001/embed/anythingllm-chat-widget.min.js">
   </script>
+  <!-- AnythingLLM (https://anythingllm.com) -->
 </body>
 </html>
